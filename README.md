@@ -1,16 +1,27 @@
-## Hi there 👋
+# Hi, I'm Társio 👋
 
-<!--
-**chiconitarsio/chiconitarsio** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+🎓 Bachelor's Degree in Interdisciplinary Science – Computational Mathematics (UNIFESP)
+📊 Data Analysis | Machine Learning | Bioinformatics
+🐍 Python | Data Science | Scientific Computing
 
-Here are some ideas to get you started:
+## 🚀 Featured Project
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+### DNA Sequence Analysis with Python
+
+Analysis of DNA sequences from multi-FASTA files using Biopython.
+
+Features:
+
+* FASTA parsing
+* ORF detection
+* Repeat analysis
+* Sequence statistics
+* Data visualization
+
+🔗 [View Project](https://github.com/chiconitarsio/dna-sequence-analysis-python)
+
+## 📫 Contact
+
+* LinkedIn: [https://www.linkedin.com/in/társio-chiconi](https://www.linkedin.com/in/társio-chiconi)
+* Email: [chiconitarsio@gmail.com](mailto:chiconitarsio@gmail.com)
+
