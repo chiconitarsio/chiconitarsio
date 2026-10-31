@@ -8,6 +8,7 @@ import json
 import math
 import os
 import sys
+import urllib.error
 import urllib.request
 from pathlib import Path
 
@@ -52,6 +53,25 @@ TEMAS = {
 NIVEL = {"NONE": 0, "FIRST_QUARTILE": 1, "SECOND_QUARTILE": 2,
          "THIRD_QUARTILE": 3, "FOURTH_QUARTILE": 4}
 
+def tokens():
+    """Token pessoal (inclui atividade privada) primeiro; o do Actions como reserva."""
+    return [t for t in (os.environ.get("PERFIL_TOKEN"), os.environ.get("GITHUB_TOKEN")) if t]
+
+
+def consultar(corpo, lista):
+    for i, token in enumerate(lista):
+        req = urllib.request.Request(
+            "https://api.github.com/graphql", data=corpo,
+            headers={"Authorization": f"bearer {token}", "Content-Type": "application/json"})
+        try:
+            with urllib.request.urlopen(req) as resp:
+                return json.load(resp)
+        except urllib.error.HTTPError as erro:
+            if erro.code != 401 or i == len(lista) - 1:
+                raise
+            print("::warning::PERFIL_TOKEN inválido ou expirado; usando só dados públicos.")
+
+
 CONSULTA = """
 query($login: String!) {
   user(login: $login) {
@@ -66,11 +86,7 @@ query($login: String!) {
 
 def buscar_semanas(usuario, token):
     corpo = json.dumps({"query": CONSULTA, "variables": {"login": usuario}}).encode()
-    req = urllib.request.Request(
-        "https://api.github.com/graphql", data=corpo,
-        headers={"Authorization": f"bearer {token}", "Content-Type": "application/json"})
-    with urllib.request.urlopen(req) as resp:
-        dados = json.load(resp)
+    dados = consultar(corpo, token)
     if "errors" in dados:
         raise SystemExit(dados["errors"])
     cal = dados["data"]["user"]["contributionsCollection"]["contributionCalendar"]
@@ -219,7 +235,7 @@ def gerar_svg(semanas, tema):
 
 def main():
     usuario, saida = sys.argv[1], Path(sys.argv[2])
-    semanas = buscar_semanas(usuario, os.environ["GITHUB_TOKEN"])
+    semanas = buscar_semanas(usuario, tokens())
     saida.mkdir(parents=True, exist_ok=True)
     for nome, tema in TEMAS.items():
         (saida / nome).write_text(gerar_svg(semanas, tema), encoding="utf-8")
