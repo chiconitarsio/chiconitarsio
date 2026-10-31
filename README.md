@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f2027,50:203a43,100:2c5364&height=200&section=header&text=Tarsio%20Chiconi&fontSize=48&fontColor=ffffff&animation=fadeIn&fontAlignY=40" width="100%" alt="Társio Chiconi" />
+  <img src="assets/banner.svg" width="100%" alt="Társio Chiconi" />
 </p>
 
 <p align="center">
@@ -9,7 +9,6 @@
 <p align="center">
   <a href="https://www.linkedin.com/in/t%C3%A1rsio-chiconi"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
   <a href="mailto:chiconitarsio@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
-  <img src="https://komarev.com/ghpvc/?username=chiconitarsio&color=2c5364&style=for-the-badge&label=VISITAS" alt="Visitas" />
 </p>
 
 ---
@@ -79,8 +78,8 @@ processos que ainda dependem de trabalho manual.
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/chiconitarsio/chiconitarsio/output/github-snake-dark.svg" />
-    <img src="https://raw.githubusercontent.com/chiconitarsio/chiconitarsio/output/github-snake.svg" alt="Cobrinha comendo o gráfico de contribuições" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/chiconitarsio/chiconitarsio/output/olho-dark.svg" />
+    <img src="https://raw.githubusercontent.com/chiconitarsio/chiconitarsio/output/olho.svg" alt="Olho observando o gráfico de contribuições" />
   </picture>
 </p>
 
