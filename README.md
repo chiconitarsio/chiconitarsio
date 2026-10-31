@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f2027,50:203a43,100:2c5364&height=200&section=header&text=T%C3%A1rsio%20Chiconi&fontSize=48&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=BI%20%26%20Planning%20%C2%B7%20Dados%20%C2%B7%20Automa%C3%A7%C3%A3o&descAlignY=58&descSize=18" width="100%" alt="Társio Chiconi" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f2027,50:203a43,100:2c5364&height=200&section=header&text=T%C3%A1rsio%20Chiconi&fontSize=48&fontColor=ffffff&animation=fadeIn&fontAlignY=40" width="100%" alt="Társio Chiconi" />
 </p>
 
 <p align="center">
@@ -18,12 +18,11 @@
 
 ```python
 class Tarsio:
-    cargo      = "BI & Planning @ Qeevo"
-    foco       = ["Business Intelligence", "Planejamento", "Engenharia de dados"]
-    stack      = ["SQL", "Python", "Power BI", "Excel"]
-    paralelo   = "Projetos independentes de dados e automação"
-    interesse  = "Setor público: dados abertos, licitações, automação de processos"
-    formacao   = "UNIFESP · Ciência e Tecnologia + Matemática Computacional"
+    cargo     = "BI & Planning @ Qeevo"
+    stack     = ["SQL", "Python", "Power BI"]
+    paralelo  = "Projetos de dados e automação"
+    interesse = "Setor público e licitações"
+    formacao  = "UNIFESP · Mat. Computacional"
 ```
 
 Trabalho com Business Intelligence e planejamento: transformo dados operacionais em indicadores,
