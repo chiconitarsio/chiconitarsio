@@ -70,6 +70,17 @@ processos que ainda dependem de trabalho manual.
 
 ---
 
+## 📊 Painel
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/chiconitarsio/chiconitarsio/output/dash-dark.svg" />
+    <img src="https://raw.githubusercontent.com/chiconitarsio/chiconitarsio/output/dash.svg" width="100%" alt="Painel: contribuições, commits, dias ativos, repositórios, contribuições por mês, linguagens e dia da semana" />
+  </picture>
+</p>
+
+---
+
 ## 📈 Atividade
 
 <p align="center">
