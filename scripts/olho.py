@@ -14,13 +14,28 @@ from pathlib import Path
 CELULA, ESPACO = 12, 3
 PASSO = CELULA + ESPACO
 MARGEM_X = 10
-TOPO_GRADE = 118
-OLHO_X, OLHO_Y = None, 52  # x é calculado pelo centro da grade
+TOPO_GRADE = 176
+OLHO_Y = 84  # x é o centro da grade
 OLHO_RX, OLHO_RY = 46, 26
 IRIS_R, PUPILA_R = 18, 8
 DESVIO_MAX = 16  # quanto a íris anda dentro do olho
 SEG_POR_DIA = 1.3
 MAX_ALVOS = 30
+
+# Símbolo nórdico atrás do olho: Valknut (nó de Odin) e um anel de runas.
+VALKNUT_R, VALKNUT_DESLOC = 38, 19  # raio de cada triângulo e afastamento do centro
+ANEL_R = 72
+GIRO_VALKNUT, GIRO_ANEL, RESPIRA = 40, 70, 7  # segundos por volta / por pulso
+# Futhark antigo, cada runa num quadro de 5 x 10.
+RUNAS = [
+    "M0 0V10M0 3L5 0M0 6L5 3", "M0 10V0L5 3V10", "M0 0V10M0 3L4 5L0 7", "M0 0V10M0 0L4 3M0 4L4 7",
+    "M0 10V0L4 2.5L0 5L4 10", "M4 0L0 5L4 10", "M0 0L5 10M5 0L0 10", "M0 10V0L4 2.5L0 5",
+    "M0 0V10M5 0V10M0 3L5 7", "M2.5 0V10M0 3L5 7", "M2.5 0V10", "M2 1L0 4L2 7M3 3L5 6L3 9",
+    "M2.5 0V10M2.5 0L5 2M2.5 10L0 8", "M0 0V10M0 0L3 3M0 10L3 7", "M2.5 0V10M0 0L2.5 4L5 0",
+    "M4 0L0 4L4 6L0 10", "M2.5 0V10M0 3L2.5 0L5 3", "M0 0V10L4 7.5L0 5L4 2.5Z",
+    "M0 10V0L2.5 3L5 0V10", "M0 10V0L5 5M5 10V0L0 5", "M0 10V0L4 3", "M2.5 0L5 5L2.5 10L0 5Z",
+    "M0 0V10L5 0V10L0 0", "M2.5 0L5 3L0 8M2.5 0L0 3L5 8",
+]
 
 TEMAS = {
     "olho.svg": {
@@ -72,6 +87,39 @@ def escolher_alvos(dias):
 
 def fmt(n):
     return f"{n:.2f}".rstrip("0").rstrip(".")
+
+
+def simbolo(ox, cor):
+    """Valknut girando num sentido e anel de runas no outro, pulsando de leve."""
+    tri = []
+    for k in range(3):
+        ang = math.radians(-90 + 120 * k)
+        cx, cy = ox + VALKNUT_DESLOC * math.cos(ang), OLHO_Y + VALKNUT_DESLOC * math.sin(ang)
+        pts = [(cx + VALKNUT_R * math.cos(math.radians(-90 + 120 * j)),
+                cy + VALKNUT_R * math.sin(math.radians(-90 + 120 * j))) for j in range(3)]
+        tri.append('<polygon points="' + " ".join(f"{fmt(x)},{fmt(y)}" for x, y in pts) + '"/>')
+
+    runas = []
+    for k, d in enumerate(RUNAS):
+        ang = 360 * k / len(RUNAS)
+        runas.append(f'<path d="{d}" transform="rotate({fmt(ang)} {fmt(ox)} {OLHO_Y}) '
+                     f'translate({fmt(ox - 2.5)} {OLHO_Y - ANEL_R - 5})"/>')
+
+    def girar(seg, sentido):
+        return (f'<animateTransform attributeName="transform" type="rotate" dur="{seg}s" '
+                f'repeatCount="indefinite" from="0 {fmt(ox)} {OLHO_Y}" '
+                f'to="{360 * sentido} {fmt(ox)} {OLHO_Y}"/>')
+
+    return f"""
+  <g fill="none" stroke="{cor}" stroke-linecap="round" stroke-linejoin="round" opacity=".35">
+    <animate attributeName="opacity" dur="{RESPIRA}s" repeatCount="indefinite" values=".2;.55;.2" keyTimes="0;.5;1" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+    <g stroke-width="2.5">{girar(GIRO_VALKNUT, 1)}{"".join(tri)}</g>
+    <g stroke-width="1.2">{girar(GIRO_ANEL, -1)}
+      <circle cx="{fmt(ox)}" cy="{OLHO_Y}" r="{ANEL_R - 9}"/>
+      <circle cx="{fmt(ox)}" cy="{OLHO_Y}" r="{ANEL_R + 9}"/>
+      {"".join(runas)}
+    </g>
+  </g>"""
 
 
 def gerar_svg(semanas, tema):
@@ -165,7 +213,7 @@ def gerar_svg(semanas, tema):
   <ellipse cx="{fmt(ox)}" cy="{OLHO_Y}" rx="{OLHO_RX}" ry="{OLHO_RY}" fill="none" stroke="{tema["contorno"]}" stroke-width="3">{piscar}</ellipse>"""
 
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{fmt(largura)}" height="{altura}" '
-            f'viewBox="0 0 {fmt(largura)} {altura}">\n  '
+            f'viewBox="0 0 {fmt(largura)} {altura}">' + simbolo(ox, tema["brilho"]) + "\n  "
             + "\n  ".join(celulas) + "\n  " + "\n  ".join(partes) + olho + "\n</svg>\n")
 
 
