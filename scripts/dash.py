@@ -1,4 +1,7 @@
-"""Gera um painel estilo dashboard com os dados públicos do GitHub.
+"""Gera um painel estilo dashboard com os dados do GitHub.
+
+Com um token pessoal (PERFIL_TOKEN no workflow) entram também os repositórios
+e contribuições privados; só números aparecem, nunca nomes de repositórios.
 
 Uso: GITHUB_TOKEN=... python scripts/dash.py <usuario> <pasta_saida>
 Gera dash.svg (tema claro) e dash-dark.svg (tema escuro).
@@ -34,9 +37,8 @@ TEMAS = {
 CONSULTA = """
 query($login: String!) {
   user(login: $login) {
-    repositories(ownerAffiliations: OWNER, isFork: false, privacy: PUBLIC, first: 100) {
-      totalCount
-      nodes { stargazerCount languages(first: 10) { edges { size node { name } } } }
+    repositories(ownerAffiliations: OWNER, isFork: false, first: 100) {
+      nodes { isPrivate languages(first: 10) { edges { size node { name } } } }
     }
     contributionsCollection {
       totalCommitContributions
@@ -61,6 +63,10 @@ def buscar(usuario, token):
     return dados["data"]["user"]
 
 
+def plural(n, palavra):
+    return f"{n} {palavra}{'' if n == 1 else 's'}"
+
+
 def resumir(user):
     col = user["contributionsCollection"]
     dias = [d for s in col["contributionCalendar"]["weeks"] for d in s["contributionDays"]]
@@ -81,6 +87,7 @@ def resumir(user):
 
     linguagens = Counter()
     repos = user["repositories"]
+    privados = any(r["isPrivate"] for r in repos["nodes"])
     for r in repos["nodes"]:
         for e in r["languages"]["edges"]:
             linguagens[e["node"]["name"]] += e["size"]
@@ -96,7 +103,8 @@ def resumir(user):
             (str(col["contributionCalendar"]["totalContributions"]), "Contribuições", "últimos 12 meses"),
             (str(col["totalCommitContributions"]), "Commits", "últimos 12 meses"),
             (str(sum(1 for d in dias if d["contributionCount"])), "Dias ativos", "últimos 12 meses"),
-            (str(repos["totalCount"]), "Repositórios", "públicos"),
+            (str(len(repos["nodes"])), "Repositórios",
+             plural(sum(1 for r in repos["nodes"] if r["isPrivate"]), "privado") if privados else "públicos"),
         ],
         "meses": meses,
         "semana": list(zip(SEMANA, semana)),

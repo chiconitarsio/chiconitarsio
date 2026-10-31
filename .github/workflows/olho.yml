@@ -25,7 +25,8 @@ jobs:
           python scripts/olho.py ${{ github.repository_owner }} dist
           python scripts/dash.py ${{ github.repository_owner }} dist
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Token pessoal (se existir) inclui a atividade privada; senão, só a pública.
+          GITHUB_TOKEN: ${{ secrets.PERFIL_TOKEN || secrets.GITHUB_TOKEN }}
 
       - uses: crazy-max/ghaction-github-pages@v4
         with:
