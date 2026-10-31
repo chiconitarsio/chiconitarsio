@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f2027,50:203a43,100:2c5364&height=200&section=header&text=T%C3%A1rsio%20Chiconi&fontSize=48&fontColor=ffffff&animation=fadeIn&fontAlignY=40" width="100%" alt="Társio Chiconi" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f2027,50:203a43,100:2c5364&height=200&section=header&text=Tarsio%20Chiconi&fontSize=48&fontColor=ffffff&animation=fadeIn&fontAlignY=40" width="100%" alt="Társio Chiconi" />
 </p>
 
 <p align="center">
