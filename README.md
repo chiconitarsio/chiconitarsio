@@ -90,7 +90,7 @@ processos que ainda dependem de trabalho manual.
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/chiconitarsio/chiconitarsio/output/olho-dark.svg" />
-    <img src="https://raw.githubusercontent.com/chiconitarsio/chiconitarsio/output/olho.svg" alt="Olho observando o gráfico de contribuições" />
+    <img src="https://raw.githubusercontent.com/chiconitarsio/chiconitarsio/output/olho.svg" alt="Olho-radar do Licita IA passeando sobre o gráfico de contribuições" />
   </picture>
 </p>
 
